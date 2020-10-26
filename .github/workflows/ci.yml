@@ -24,3 +24,13 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+   
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        #these are the parameters that we can over write 
+        image: ixxtron/showcase-repo
+        registry: docker.io
+        #use these variables as placeholders to reference secretes stroed in our github repo
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}       
