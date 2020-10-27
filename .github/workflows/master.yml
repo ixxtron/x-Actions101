@@ -10,8 +10,13 @@ jobs:
   Terraform:
     name: Terraform Plan & Apply
     runs-on: ubuntu-latest
-    steps:
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITAWS_TOKEN }}
+        TF_ACTION_WORKING_DIR: '.'
+        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY}
+        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_KEY }}
 
+    steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
 
@@ -22,19 +27,9 @@ jobs:
       
     - name: Terraform Init
       run: terraform init
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITAWS_TOKEN }}
-        TF_ACTION_WORKING_DIR: '.'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_KEY }}
         
     - name: Terraform validate
       run: terraform validate
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TF_ACTION_WORKING_DIR: '.'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_KEY }}
