@@ -5,14 +5,14 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "ixproto1-terraform-state"
+    bucket = "ixstorage-proto1-terraform-state"
     key    = "default-infrastructure"
     region = "us-east-2"
   }
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "ixproto1-terraform-state"
+  bucket = "ixstorage-proto1-terraform-state"
 
   versioning {
     enabled = true
